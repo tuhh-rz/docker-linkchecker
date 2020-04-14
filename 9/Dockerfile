@@ -19,7 +19,7 @@ ENV HOME /tmp
 
 RUN apt-get install -y -qq --no-install-recommends git
 
-RUN pip install --no-cache-dir git+https://github.com/linkcheck/linkchecker.git@"${VERSION}"
+RUN pip install --no-cache-dir git+https://github.com/linkcheck/linkchecker.git@"v${VERSION}"
 RUN apt-get autoremove -y -qq \
     && apt-get clean -y -qq all \
     && rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/locale /usr/share/man
