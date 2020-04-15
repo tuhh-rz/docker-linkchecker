@@ -1,5 +1,9 @@
 {
     "active": true,
+    "version-check": {
+        "master_key": "Linkchecker",
+        "version_digits_in_key": 1
+    },
     "registries": [{
             "name": "collaborating.tuhh.de:5005",
             "state": "ignore"
