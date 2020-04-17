@@ -1,11 +1,11 @@
 variables:
     CONTAINER_RELEASE_IMAGE: docker.rz.tu-harburg.de:5000/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME
-    LATEST_VERSION: 'LATEST'
+    LATEST_VERSION: '9'
 
 .build_script_template:
   script: &build_script_definition
     - pwd
-    - key="PythonSSLLabs ${VERSION}"
+    - key="Linkchecker ${VERSION}"
 
     - version=$(curl -s https://cgi.tu-harburg.de/~rztwww/Software/program_file.json | jq --arg KEY "$key" --raw-output '.[$KEY] | .version')
     - if [[ -z $version ]]; then exit 1; fi
@@ -56,7 +56,7 @@ stages:
   - deploy
   - build_siblings
 
-build:latest:
+build:9:
   stage: build
   retry: 2
   only:
@@ -64,24 +64,24 @@ build:latest:
   tags:
     - build
   variables:
-    VERSION: "LATEST"
+    VERSION: "9"
     VARIANT: ""
   before_script: *build_before_script_definition
   script: *build_script_definition
 
-deploy:latest:
+deploy:9:
   stage: deploy
-  needs: ["build:latest"]
+  needs: ["build:9"]
   tags:
     - deploy
   only:
     - master
   variables:
-    VERSION: "LATEST"
+    VERSION: "9"
     VARIANT: ""
   script: *deploy_script_definition
 
-build:branches:latest:
+build:branches:9:
   stage: build
   retry: 2
   only:
@@ -91,14 +91,14 @@ build:branches:latest:
   tags:
     - build
   variables:
-    VERSION: "LATEST"
+    VERSION: "9"
     VARIANT: ""
   before_script: *build_branches_before_script_definition
   script: *build_branches_script_definition
 
-deploy:branches:latest:
+deploy:branches:9:
   stage: deploy
-  needs: ["build:branches:latest"]
+  needs: ["build:branches:9"]
   tags:
     - deploy
   only:
@@ -106,6 +106,6 @@ deploy:branches:latest:
   except:
     - master
   variables:
-    VERSION: "LATEST"
+    VERSION: "9"
     VARIANT: ""
   script: *deploy_branches_script_definition
