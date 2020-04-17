@@ -1,7 +1,7 @@
 {
     "active": true,
     "version-check": {
-        "active": false,
+        "active": true,
         "master_key": "Linkchecker",
         "version_digits_in_key": 1
     },
